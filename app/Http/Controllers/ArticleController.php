@@ -65,7 +65,14 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+            // Si aún no defines reglas, puedes usar $request->all()
+        $data = $request->all();
+
+        $article->update($data);
+
+        return redirect()
+            ->route('articles.index')
+            ->with('ok','Artículo actualizado correctamente');
     }
 
     /**
@@ -73,6 +80,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+         $article->delete();
+
+        return redirect()
+            ->route('articles.index')
+            ->with('ok','Artículo eliminado correctamente');
     }
 }
