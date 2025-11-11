@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 
+
 Route::get('/', function () {
-    return view('articles.index')->with('articles', Article::getAll());
-})->name('index');
+    $articles = Article::latest()->take(12)->get(); // Trae los artículos más recientes
+    return view('index', compact('articles'));
+})->name('home');
 
 // Rutas CRUD de artículos
 
